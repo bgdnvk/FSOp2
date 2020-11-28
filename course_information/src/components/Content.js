@@ -2,30 +2,17 @@ import React from "react"
 import Part from "./content/Part"
 const Content = (props) => {
     const allParts = props.parts;
-    console.log(allParts);
+    console.log("ALL PARTS", allParts);
     const course = props
     console.log("course is",course);
   
   
   return(
     <div>
-   
-        <Part 
-        name={allParts[0].name}
-        exercises={allParts[0].exercises}
-        >
-        </Part>
-        <Part 
-        name={allParts[1].name}
-        exercises={allParts[1].exercises}
-        >
-        </Part>
-        <Part 
-        name={allParts[2].name}
-        exercises={allParts[2].exercises}
-        >
-        </Part>
-  
+        {allParts.map(
+          
+          (part) => <Part key={part.id} name={part.name} exercises={part.exercises}></Part>
+        )}
     </div>
   )
   }
