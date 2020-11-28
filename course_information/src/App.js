@@ -25,16 +25,6 @@ const App = () => {
     console.log(course.parts);
     console.log(course.parts[0]);
   
-  
-  
-    // return (
-    //   <div>
-    //     <Header name={course.name}></Header>
-    //     <Content parts={course.parts}
-    //     course={course}></Content>
-    //     <Total parts={course.parts}></Total>
-    //   </div>
-    // )
     return <Course course={course} />
   }
 
