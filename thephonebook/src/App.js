@@ -21,6 +21,10 @@ const App = () => {
     setNewName(e.target.value)
   }
 
+  const handleNumberChange = (e) => {
+    setNewNumber(e.target.value)
+  }
+
   const addName = (e) => {
     e.preventDefault()
     console.log(e.target);
@@ -38,6 +42,7 @@ const App = () => {
 
       setPersons(persons.concat(nameObj))
       setNewName("")
+      setNewNumber("")
     }
   
 
@@ -53,6 +58,11 @@ const App = () => {
           />
         </div>
         <div>
+          number: <input value={newNumber}
+            onChange={handleNumberChange}
+          />
+        </div>
+        <div>
           <button type="submit"
           >add</button>
         </div>
@@ -60,7 +70,8 @@ const App = () => {
       <h2>Numbers</h2>
       <div>
        {persons.map(
-           (person) => <Person key={person.id} person={person}></Person>
+           (person) => <Person key={person.id} person={person}
+           ></Person>
          )}
       </div>
     </div>
