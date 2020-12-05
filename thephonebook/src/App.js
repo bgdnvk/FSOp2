@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import Person from "./components/Person"
+import Filter from "./components/Filter"
+import PersonForm from './components/PersonForm'
+import Persons from "./components/Persons"
 
 const checkName = (name, persons) => {
   return persons.find(person => name.toLowerCase() === person.name.toLowerCase())
@@ -57,23 +59,15 @@ const App = () => {
       setPersons(persons.concat(nameObj))
       setNewName("")
       setNewNumber("")
+      setDisplayPeople(persons.concat(nameObj))
     }
   }
-
-  // const displayNames = (peopleToDisplay) => {
-  //   peopleToDisplay.map(
-  //     (person) => <Person key={person.id} person={person}
-  //     ></Person>
-  //   )
-  // }
 
   const filterNames = (e) => {
     const name = e.target.value.toLowerCase();
     console.log(name);
     let newArr = []
 
-
-    // let [first, ...second] = str.split(" ")
 
     console.log("persons are ", persons);
     for(let person of persons){
@@ -99,48 +93,19 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <form>
-        <div>
-          filter shown with: <input value={filterName}
-          onChange={filterNames}></input>
-        </div>
-      </form>
+      <Filter filterName={filterName} filterNames={filterNames}></Filter>
+
       <h2>Add new</h2>
-      <form onSubmit={addName}>
-        <div>
-          name: <input value={newName}
-            onChange={handleNameChange}
-          />
-        </div>
-        <div>
-          number: <input value={newNumber}
-            onChange={handleNumberChange}
-          />
-        </div>
-        <div>
-          <button type="submit"
-          >add</button>
-        </div>
-      </form>
+      <PersonForm
+      addName={addName}
+      newName={newName}
+      newNumber={newNumber}
+      handleNameChange={handleNameChange}
+      handleNumberChange={handleNumberChange}
+      ></PersonForm>
+      
       <h2>Numbers</h2>
-      <div>
-       {displayPeople.map(
-           (person) => <Person key={person.id} person={person}
-           ></Person>
-         )}
-      </div>
-
-      {/* <h2>
-        displayed
-      </h2>
-      <div>
-      {displayPeople.map(
-           (person) => <Person key={person.id} person={person}
-           ></Person>
-         )}
-        
-
-      </div> */}
+      <Persons displayPeople={displayPeople}></Persons>
     </div>
   )
 }
