@@ -1,35 +1,35 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Filter from "./components/Filter"
 import PersonForm from './components/PersonForm'
 import Persons from "./components/Persons"
+import axios from "axios"
 
 const checkName = (name, persons) => {
   return persons.find(person => name.toLowerCase() === person.name.toLowerCase())
 }
 
 
+// const promise = axios.get("http://localhost:3001/persons")
+// promise.then( res => {
+//   console.log(res.data);
+// })
+
 const App = () => {
-  const [ persons, setPersons ] = useState([
-    { name: 'Arto Hellas',
-      number: "12345",
-      id: 1, },
-      { name: 'Arto Hellas',
-      id: 2,
-       number: '040-123456' },
-    { name: 'Ada Lovelace',
-    id:3,
-     number: '39-44-5323523' },
-    { name: 'Dan Abramov',
-    id:4,
-     number: '12-43-234345' },
-    { name: 'Mary Poppendieck',
-    id:5,
-     number: '39-23-6423122' }
-  ]) 
+  const [ persons, setPersons ] = useState([]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ filterName, setFilterName ] = useState('')
   const [ displayPeople, setDisplayPeople ] = useState(persons)
+
+  useEffect(()=>{
+    axios
+      .get("http://localhost:3001/persons")
+      .then(res => {
+        console.log(res.data);
+        setPersons(res.data)
+        setDisplayPeople(res.data)
+      })
+  }, [])
 
 
   const handleNameChange = (e) => {
