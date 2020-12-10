@@ -68,6 +68,16 @@ function App() {
     // console.log("target val ", e.target.value);
     
   }
+
+  const handleRandom = (e) => {
+    e.preventDefault();
+    console.log("clicked random");
+    return(
+      <div>
+        of something
+      </div>
+    )
+  }
   
   return (
     <div className="App">
@@ -77,6 +87,10 @@ function App() {
     ></FindCountryForm>
 
     <CountryInformation countries={displayCountries}></CountryInformation>
+
+    <div>
+      <button onClick={handleRandom}>random butt</button>
+    </div>
 
     {/* <div>
       {displayCountries.map(

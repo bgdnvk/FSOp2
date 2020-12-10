@@ -1,7 +1,5 @@
 import React from "react"
-import CountryDetails from "./country_info/CountryDetails"
-import CountryLanguages from "./country_info/CountryLanguages"
-import Flag from "./country_info/Flag"
+import SingleCountryInfo from "./SingleCountryInfo"
 import MapCountries from "./country_info/MapCountries"
 
 
@@ -11,10 +9,7 @@ const CountryInformation = ({countries}) => {
         let country = countries[0]
         return (
             <div>
-                <CountryDetails country={country}></CountryDetails>
-                <CountryLanguages languages={country.languages}></CountryLanguages>
-                <Flag flag={country.flag}></Flag>
-    
+                <SingleCountryInfo country={country}></SingleCountryInfo>
             </div>
         )
      } 
