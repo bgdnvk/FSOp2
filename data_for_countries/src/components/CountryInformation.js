@@ -3,7 +3,7 @@ import SingleCountryInfo from "./SingleCountryInfo"
 import MapCountries from "./country_info/MapCountries"
 
 
-const CountryInformation = ({countries}) => {
+const CountryInformation = ({countries, showCountry}) => {
 
     if(countries.length === 1) {
         let country = countries[0]
@@ -16,7 +16,7 @@ const CountryInformation = ({countries}) => {
     else if(countries.length <= 10 && countries.length > 1){
         return(
             <div>
-                <MapCountries countries={countries}></MapCountries>
+                <MapCountries countries={countries} showCountry={showCountry}></MapCountries>
             </div>
         )
     }

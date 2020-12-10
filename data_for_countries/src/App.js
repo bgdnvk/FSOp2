@@ -69,15 +69,7 @@ function App() {
     
   }
 
-  const handleRandom = (e) => {
-    e.preventDefault();
-    console.log("clicked random");
-    return(
-      <div>
-        of something
-      </div>
-    )
-  }
+
   
   return (
     <div className="App">
@@ -86,11 +78,7 @@ function App() {
     country={newCountry}
     ></FindCountryForm>
 
-    <CountryInformation countries={displayCountries}></CountryInformation>
-
-    <div>
-      <button onClick={handleRandom}>random butt</button>
-    </div>
+    <CountryInformation countries={displayCountries} showCountry={getExistingCountries}></CountryInformation>
 
     {/* <div>
       {displayCountries.map(
