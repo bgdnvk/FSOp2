@@ -1,15 +1,19 @@
 import React from "react"
 import SingleCountryInfo from "./SingleCountryInfo"
 import MapCountries from "./country_info/MapCountries"
+import FetchWeatherData from "./FetchWeatherData"
 
 
-const CountryInformation = ({countries, showCountry}) => {
+const CountryInformation = ({countries, showCountry, uniqueCountry}) => {
+    
 
     if(countries.length === 1) {
         let country = countries[0]
+        
         return (
             <div>
                 <SingleCountryInfo country={country}></SingleCountryInfo>
+                <FetchWeatherData uniqueCountry={uniqueCountry}></FetchWeatherData>
             </div>
         )
      } 

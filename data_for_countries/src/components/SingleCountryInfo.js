@@ -3,7 +3,7 @@ import CountryDetails from "./country_info/CountryDetails"
 import CountryLanguages from "./country_info/CountryLanguages"
 import Flag from "./country_info/Flag"
 
-const SingleCountryInfo = ({country}) => {
+const SingleCountryInfo = ({country, weather}) => {
     return (
         <div>
             <CountryDetails country={country}></CountryDetails>
