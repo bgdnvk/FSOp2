@@ -2,7 +2,8 @@ import React from "react"
 import contactService from '../services/contacts'
 
 
-const Person = ({person, setPersons, setDisplayPeople, displaypeople, persons}) => {
+const Person = ({person, setPersons, setDisplayPeople, displaypeople, persons,
+setMessage, setSuccess}) => {
 
     
     // console.log('inside person', persons);
@@ -22,6 +23,14 @@ const Person = ({person, setPersons, setDisplayPeople, displaypeople, persons}) 
                     setPersons(newArr)
                     setDisplayPeople(newArr)
                 })
+                .catch(err => {
+                    console.log(err);
+                    setSuccess(false)
+                    setMessage(`Information of ${person.name} has already been removed from the server`)
+                })
+                setPersons(newArr)
+                setDisplayPeople(newArr)
+
         }
       }
 

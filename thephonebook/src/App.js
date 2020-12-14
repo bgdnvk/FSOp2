@@ -149,7 +149,7 @@ const App = () => {
       <h2>Numbers</h2>
       <Persons displayPeople={displayPeople}
       setPersons={setPersons} setDisplayPeople={setDisplayPeople}
-      persons={persons}
+      persons={persons} setMessage={setMessage} setSuccess={setSuccess}
       ></Persons>
     </div>
   )
