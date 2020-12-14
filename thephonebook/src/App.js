@@ -51,6 +51,12 @@ const App = () => {
     setNewNumber(e.target.value)
   }
 
+  // const handleDelete = (e) =>{
+  //   e.preventDefault()
+  //   console.log('clicked delete', e);
+  //   console.log('this is', this);
+  // }
+
   const addName = (e) => {
     e.preventDefault()
     console.log(e.target);
@@ -124,7 +130,10 @@ const App = () => {
       ></PersonForm>
       
       <h2>Numbers</h2>
-      <Persons displayPeople={displayPeople}></Persons>
+      <Persons displayPeople={displayPeople}
+      setPersons={setPersons} setDisplayPeople={setDisplayPeople}
+      persons={persons}
+      ></Persons>
     </div>
   )
 }
