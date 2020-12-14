@@ -3,6 +3,7 @@ import Filter from "./components/Filter"
 import PersonForm from './components/PersonForm'
 import Persons from "./components/Persons"
 import contactService from './services/contacts'
+import Notification from './components/Notification'
 
 const checkName = (name, persons) => {
   return persons.find(person => name.toLowerCase() === person.name.toLowerCase())
@@ -19,6 +20,8 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ filterName, setFilterName ] = useState('')
   const [ displayPeople, setDisplayPeople ] = useState(persons)
+  const [ message, setMessage ] = useState(null)
+  const [ success, setSuccess ] = useState(null)
 
   useEffect( () => {
     contactService
@@ -47,6 +50,13 @@ const App = () => {
     setNewNumber("")
   }
 
+  const makeNotification = (p, msg) => {
+    setMessage(`person ${p.name} has been ${msg}!`)
+    setTimeout( () => {
+      setMessage(null)
+    }, 5000)
+  }
+
   const addName = (e) => {
     e.preventDefault()
     console.log(e.target);
@@ -61,6 +71,11 @@ const App = () => {
         .then( returnedPerson => {
           let newArr = persons.map(person => person.name !== newName? person: returnedPerson )
           updateNumbers(newArr)
+          //added
+          // console.log('inside update', returnedPerson);
+          // setMessage(`person ${returnedPerson.name} has been UPDATED!`)
+          setSuccess(true)
+          makeNotification(returnedPerson, 'UPDATED')
         })
     } else if (checkName(newName,persons)){
       console.log("found");
@@ -79,6 +94,11 @@ const App = () => {
           console.log('ADDING', contact);
           let newArr = persons.concat(contact)
           updateNumbers(newArr)
+
+          // console.log('inside update', contact);
+          // setMessage(`person ${contact.name} has been ADDED!`)
+          setSuccess(true)
+          makeNotification(contact, 'ADDED')
         })
     }
   }
@@ -113,6 +133,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message}
+      success={success}></Notification>
       <Filter filterName={filterName} filterNames={filterNames}></Filter>
 
       <h2>Add new</h2>
