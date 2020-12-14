@@ -4,8 +4,8 @@ import contactService from '../services/contacts'
 
 const Person = ({person, setPersons, setDisplayPeople, displaypeople, persons}) => {
 
-    // console.log('inside person', displaypeople);
-    console.log('inside person', persons);
+    
+    // console.log('inside person', persons);
 
     
     const handleDelete = (e) =>{

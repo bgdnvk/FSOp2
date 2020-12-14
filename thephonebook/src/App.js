@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react'
 import Filter from "./components/Filter"
 import PersonForm from './components/PersonForm'
 import Persons from "./components/Persons"
-import axios from "axios"
 import contactService from './services/contacts'
 
 const checkName = (name, persons) => {
   return persons.find(person => name.toLowerCase() === person.name.toLowerCase())
 }
 
+const checkNumber = (number, persons) => {
+  return persons.find(person => number === person.number)
+}
 
-// const promise = axios.get("http://localhost:3001/persons")
-// promise.then( res => {
-//   console.log(res.data);
-// })
 
 const App = () => {
   const [ persons, setPersons ] = useState([]) 
@@ -22,15 +20,6 @@ const App = () => {
   const [ filterName, setFilterName ] = useState('')
   const [ displayPeople, setDisplayPeople ] = useState(persons)
 
-  // useEffect(()=>{
-  //   axios
-  //     .get("http://localhost:3001/persons")
-  //     .then(res => {
-  //       console.log(res.data);
-  //       setPersons(res.data)
-  //       setDisplayPeople(res.data)
-  //     })
-  // }, [])
   useEffect( () => {
     contactService
       .getAll()
@@ -51,21 +40,34 @@ const App = () => {
     setNewNumber(e.target.value)
   }
 
-  // const handleDelete = (e) =>{
-  //   e.preventDefault()
-  //   console.log('clicked delete', e);
-  //   console.log('this is', this);
-  // }
+  const updateNumbers = (arr) => {
+    setPersons(arr)
+    setDisplayPeople(arr)
+    setNewName("")
+    setNewNumber("")
+  }
 
   const addName = (e) => {
     e.preventDefault()
     console.log(e.target);
+    console.log(newName);
+    console.log(newNumber);
 
-    if(checkName(newName,persons)){
+    if (checkName(newName, persons) && !checkNumber(newNumber, persons)) {
+      let updateContact = persons.find( p => p.name === newName)
+      let changedPerson = {...updateContact, number: newNumber}
+      contactService
+        .update(updateContact.id, changedPerson)
+        .then( returnedPerson => {
+          let newArr = persons.map(person => person.name !== newName? person: returnedPerson )
+          updateNumbers(newArr)
+        })
+    } else if (checkName(newName,persons)){
       console.log("found");
       alert(`${newName} is already added to phonebook`)
       setNewName("")
-    } else {
+    }
+     else {
       const nameObj = {
         name: newName,
         number: newNumber,
@@ -75,16 +77,9 @@ const App = () => {
         .create(nameObj)
         .then(contact => {
           console.log('ADDING', contact);
-          setPersons(persons.concat(contact))
-          setNewName("")
-          setNewNumber("")
-          setDisplayPeople(persons.concat(contact))
+          let newArr = persons.concat(contact)
+          updateNumbers(newArr)
         })
-
-      // setPersons(persons.concat(nameObj))
-      // setNewName("")
-      // setNewNumber("")
-      // setDisplayPeople(persons.concat(nameObj))
     }
   }
 
