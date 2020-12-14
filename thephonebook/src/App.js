@@ -3,6 +3,7 @@ import Filter from "./components/Filter"
 import PersonForm from './components/PersonForm'
 import Persons from "./components/Persons"
 import axios from "axios"
+import contactService from './services/contacts'
 
 const checkName = (name, persons) => {
   return persons.find(person => name.toLowerCase() === person.name.toLowerCase())
@@ -21,13 +22,22 @@ const App = () => {
   const [ filterName, setFilterName ] = useState('')
   const [ displayPeople, setDisplayPeople ] = useState(persons)
 
-  useEffect(()=>{
-    axios
-      .get("http://localhost:3001/persons")
-      .then(res => {
-        console.log(res.data);
-        setPersons(res.data)
-        setDisplayPeople(res.data)
+  // useEffect(()=>{
+  //   axios
+  //     .get("http://localhost:3001/persons")
+  //     .then(res => {
+  //       console.log(res.data);
+  //       setPersons(res.data)
+  //       setDisplayPeople(res.data)
+  //     })
+  // }, [])
+  useEffect( () => {
+    contactService
+      .getAll()
+      .then(initialContacts => {
+        console.log('getting contacts', initialContacts);
+        setPersons(initialContacts)
+        setDisplayPeople(initialContacts)
       })
   }, [])
 
@@ -55,11 +65,20 @@ const App = () => {
         number: newNumber,
         id: persons.length+1
       }
+      contactService
+        .create(nameObj)
+        .then(contact => {
+          console.log('ADDING', contact);
+          setPersons(persons.concat(contact))
+          setNewName("")
+          setNewNumber("")
+          setDisplayPeople(persons.concat(contact))
+        })
 
-      setPersons(persons.concat(nameObj))
-      setNewName("")
-      setNewNumber("")
-      setDisplayPeople(persons.concat(nameObj))
+      // setPersons(persons.concat(nameObj))
+      // setNewName("")
+      // setNewNumber("")
+      // setDisplayPeople(persons.concat(nameObj))
     }
   }
 
