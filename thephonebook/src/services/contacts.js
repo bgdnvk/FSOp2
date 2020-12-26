@@ -1,6 +1,9 @@
 import axios from 'axios'
 //added /api
-const baseUrl = 'http://localhost:3001/api/persons'
+// const baseUrl = 'http://localhost:3001/api/persons'
+//adding relative url for build
+const baseUrl = '/api/persons'
+
 
 const getAll = () => {
     const req = axios.get(baseUrl)
